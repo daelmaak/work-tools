@@ -1,5 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
+" After running PlugInstall, you also have to install:
+" 1) tsserver. Just run in vim :CocInstall coc-tsserver
 Plug 'sainnhe/edge'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -15,6 +17,8 @@ set number
 
 set termguicolors
 set background=dark
+" Set max tab width and new line shifts
+set tabstop=4 shiftwidth=2
 
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
@@ -42,3 +46,5 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+
