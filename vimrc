@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-" After running PlugInstall, you also have to install:
-" 1) tsserver. Just run in vim :CocInstall coc-tsserver
 Plug 'sainnhe/edge'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -25,6 +23,9 @@ let g:edge_transparent_background = 1
 let g:edge_disable_italic_comment = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#autoformat_require_pragma = 0
+
+" Install ts language server
+let g:coc_global_extensions = [ 'coc-tsserver' ]
 
 colorscheme edge
 
