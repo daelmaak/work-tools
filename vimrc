@@ -31,6 +31,11 @@ colorscheme edge
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 nnoremap <C-p> :GFiles<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
