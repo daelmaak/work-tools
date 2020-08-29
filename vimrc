@@ -17,6 +17,8 @@ set termguicolors
 set background=dark
 " Set max tab width and new line shifts
 set tabstop=4 shiftwidth=2
+" Center cursor vertically when eg. searching
+set so=5
 
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
@@ -26,6 +28,10 @@ let g:prettier#autoformat_require_pragma = 0
 
 " Install ts language server
 let g:coc_global_extensions = [ 'coc-tsserver' ]
+
+" Change cursor when in insert mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 colorscheme edge
 
