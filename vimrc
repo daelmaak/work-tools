@@ -6,6 +6,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-unimpaired'
+Plug 'mattn/emmet-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -21,11 +22,16 @@ set tabstop=4 shiftwidth=2
 " Center cursor vertically when eg. searching
 set so=10
 
+let mapleader = ","
+
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
 let g:edge_disable_italic_comment = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#autoformat_require_pragma = 0
+
+" Trigger emmet when pressing leader key
+let g:user_emmet_leader_key=','
 
 " Install ts language server
 let g:coc_global_extensions = [ 'coc-tsserver' ]
