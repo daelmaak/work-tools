@@ -19,7 +19,7 @@ set background=dark
 " Set max tab width and new line shifts
 set tabstop=4 shiftwidth=2
 " Center cursor vertically when eg. searching
-set so=5
+set so=10
 
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
