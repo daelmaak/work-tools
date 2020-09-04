@@ -21,6 +21,7 @@ set background=dark
 set tabstop=4 shiftwidth=2
 " Center cursor vertically when eg. searching
 set so=10
+set number relativenumber
 
 let mapleader = ","
 
