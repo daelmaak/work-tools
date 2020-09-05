@@ -35,7 +35,7 @@ let g:prettier#autoformat_require_pragma = 0
 let g:user_emmet_leader_key=','
 
 " Install ts language server
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular' ]
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular', 'coc-tslint' ]
 
 " Change cursor when in insert mode
 let &t_SI = "\e[6 q"
