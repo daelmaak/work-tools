@@ -7,6 +7,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-unimpaired'
 Plug 'mattn/emmet-vim'
+Plug 'itchyny/lightline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -23,8 +24,8 @@ set tabstop=4 shiftwidth=2
 set so=10
 set number relativenumber
 
+" Filename at the bottom
 set laststatus=2
-set statusline+=%F
 
 let mapleader = ","
 
