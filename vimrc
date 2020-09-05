@@ -23,6 +23,9 @@ set tabstop=4 shiftwidth=2
 set so=10
 set number relativenumber
 
+set laststatus=2
+set statusline+=%F
+
 let mapleader = ","
 
 let g:edge_style = 'neon'
@@ -43,14 +46,21 @@ let &t_EI = "\e[2 q"
 
 colorscheme edge
 
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 " Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <silent>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent>qf  <Plug>(coc-fix-current)
 
 nnoremap <C-p> :GFiles<CR>
+
+" Edit vimr configuration file
+nnoremap confe :e $MYVIMRC<CR>
+" Reload vims configuration file
+nnoremap confr :source $MYVIMRC<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
