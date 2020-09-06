@@ -27,7 +27,7 @@ set number relativenumber
 " Filename at the bottom
 set laststatus=2
 
-let mapleader = ","
+" let mapleader = '\'
 
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
