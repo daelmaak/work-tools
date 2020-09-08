@@ -1,3 +1,5 @@
+let mapleader = ','
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/edge'
@@ -27,8 +29,6 @@ set number relativenumber
 " Filename at the bottom
 set laststatus=2
 
-" let mapleader = '\'
-
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
 let g:edge_disable_italic_comment = 1
@@ -47,14 +47,14 @@ let &t_EI = "\e[2 q"
 
 colorscheme edge
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
 " Remap keys for applying codeAction to the current line.
-nmap <silent>ac  <Plug>(coc-codeaction)
+nmap <leader>ac <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <silent>qf  <Plug>(coc-fix-current)
+nmap <leader>qf <Plug>(coc-fix-current)
 
 nnoremap <C-p> :GFiles<CR>
 
