@@ -14,6 +14,8 @@ Plug 'itchyny/lightline.vim'
 " Initialize plugin system
 call plug#end()
 
+set timeoutlen=300
+
 set nobackup
 set nowritebackup
 set number
