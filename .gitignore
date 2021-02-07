@@ -4,3 +4,4 @@
 # Except ...
 !.gitignore
 !vimrc
+!coc-settings.json
