@@ -13,12 +13,34 @@ Plug 'itchyny/lightline.vim'
 " Initialize plugin system
 call plug#end()
 
+" TextEdit might fail if hidden is not set.
+set hidden
+
 set timeoutlen=300
 set updatetime=200
 
 set nobackup
 set nowritebackup
-set number
+
+" more natural split opening
+set splitbelow
+set splitright
+
+" exclude node_modules from search
+set path+=**                                                                    
+set wildignore+=**/node_modules/** 
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
+else
+    set signcolumn=yes
+endif
 
 set termguicolors
 set background=dark
@@ -45,7 +67,7 @@ let g:edge_disable_italic_comment = 1
 let g:user_emmet_leader_key=','
 
 " Install coc extensions
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular', 'coc-tslint', 'coc-prettier' ]
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular', 'coc-eslint', 'coc-prettier', 'coc-css' ]
 
 " Change cursor when in insert mode
 let &t_SI = "\e[6 q"
@@ -56,6 +78,17 @@ colorscheme edge
 " Set up :Prettier command
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>p :Prettier<CR>
+
+" Set up support for scss
+autocmd FileType scss setl iskeyword+=@-@
+
+" Organize imports
+command! -nargs=0 OI :CocCommand editor.action.organizeImport
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
@@ -103,3 +136,9 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>

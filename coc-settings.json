@@ -9,6 +9,7 @@
   // Run prettier (and others)
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
+	"scss",
     "html",
     "markdown",
     "Markdown",
