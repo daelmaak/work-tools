@@ -6,15 +6,22 @@ Plug 'sainnhe/edge'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'mattn/emmet-vim'
 Plug 'itchyny/lightline.vim'
+" Plug 'jremmen/vim-ripgrep'
 
 " Initialize plugin system
 call plug#end()
 
+set statusline+=%{coc#status()}
+
 " TextEdit might fail if hidden is not set.
 set hidden
+
+" highlight current cursor line
+set cursorline
 
 set timeoutlen=300
 set updatetime=200
@@ -36,10 +43,10 @@ set cmdheight=2
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-	set signcolumn=number
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
 else
-    set signcolumn=yes
+  set signcolumn=yes
 endif
 
 set termguicolors
@@ -79,6 +86,9 @@ colorscheme edge
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>p :Prettier<CR>
 
+" Open vertical Git
+nmap <leader>gg :vertical G<CR>
+
 " Set up support for scss
 autocmd FileType scss setl iskeyword+=@-@
 
@@ -87,8 +97,8 @@ command! -nargs=0 OI :CocCommand editor.action.organizeImport
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev-error)
+nmap <silent> ]g <Plug>(coc-diagnostic-next-error)
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
@@ -102,13 +112,16 @@ nmap <leader>qf <Plug>(coc-fix-current)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
+	execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
-      call CocActionAsync('doHover')
+	call CocActionAsync('doHover')
   else
-      execute '!' . &keywordprg . " " . expand('<cword>')
+	execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -116,7 +129,6 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 nnoremap <C-p> :GFiles<CR>
-
 " Edit vimr configuration file
 nnoremap confe :e $MYVIMRC<CR>
 " Reload vims configuration file
@@ -129,16 +141,35 @@ function! s:check_back_space() abort
 endfunction
 
 inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+	  \ pumvisible() ? "\<C-n>" :
+	  \ <SID>check_back_space() ? "\<Tab>" :
+	  \ coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+let g:lightline = {
+	  \ 'colorscheme': 'wombat',
+	  \ 'active': {
+		\   'left': [ [ 'mode', 'paste' ],
+		\             [ 'gitbranch', 'readonly', 'filename', 'cocstatus', 'modified' ] ]
+		\ },
+		\ 'component_function': {
+		  \   'cocstatus': 'coc#status',
+		  \   'gitbranch': 'FugitiveHead'
+		  \ },
+		  \ }
+
+" Use autocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
