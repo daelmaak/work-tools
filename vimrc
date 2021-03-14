@@ -10,7 +10,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'mattn/emmet-vim'
 Plug 'itchyny/lightline.vim'
-" Plug 'jremmen/vim-ripgrep'
+Plug 'jremmen/vim-ripgrep'
 
 " Initialize plugin system
 call plug#end()
@@ -22,6 +22,13 @@ set hidden
 
 " highlight current cursor line
 set cursorline
+
+filetype plugin indent on
+set autoindent
+
+" auto reload file when it changes
+set autoread
+au CursorHold * checktime 
 
 set timeoutlen=300
 set updatetime=200
@@ -66,6 +73,10 @@ set backspace=indent,eol,start
 " Disable automatic comment insertion
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" In :Explore if you'd like to have relative numbering instead, try >
+let g:netrw_bufsettings="noma nomod nonu nobl nowrap ro rnu"
+
+" Theme
 let g:edge_style = 'neon'
 let g:edge_transparent_background = 1
 let g:edge_disable_italic_comment = 1
@@ -74,7 +85,7 @@ let g:edge_disable_italic_comment = 1
 let g:user_emmet_leader_key=','
 
 " Install coc extensions
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular', 'coc-eslint', 'coc-prettier', 'coc-css' ]
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-angular', 'coc-eslint', 'coc-prettier', 'coc-css', 'coc-vetur' ]
 
 " Change cursor when in insert mode
 let &t_SI = "\e[6 q"
@@ -95,6 +106,11 @@ autocmd FileType scss setl iskeyword+=@-@
 " Organize imports
 command! -nargs=0 OI :CocCommand editor.action.organizeImport
 
+" prev tab
+nnoremap H gT
+" next tab
+nnoremap L gt
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev-error)
@@ -111,6 +127,15 @@ nmap <leader>qf <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Scroll in float window or popup
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -173,3 +198,4 @@ let g:lightline = {
 
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+

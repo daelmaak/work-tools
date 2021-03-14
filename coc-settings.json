@@ -16,7 +16,8 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+	"vue"
   ],
   "coc.preferences.currentFunctionSymbolAutoUpdate": true
 }
